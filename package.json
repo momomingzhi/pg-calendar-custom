@@ -8,6 +8,7 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
+    "moment": "^2.29.4",
     "parcel-bundler": "^1.6.1",
     "pg-calendar": "^1.4.31"
   },
