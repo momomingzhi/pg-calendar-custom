@@ -1,4 +1,4 @@
-import moment from "moment";
+
 
 class Component {
 	$target;
