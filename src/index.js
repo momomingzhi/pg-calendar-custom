@@ -1,3 +1,5 @@
+import moment from "moment";
+
 class Component {
 	$target;
 	$state;
@@ -171,7 +173,6 @@ class App extends Component {
 		const { items, select } = this.$state;
 		const [optionIdx, option] = select.split('_');
 		console.log('안녕', items);
-
 		return items.map((item, idx) => {
 			return `<section class="${item.className}">
 				<h2>${item.title}</h2>
@@ -188,7 +189,7 @@ class App extends Component {
 				</div>
 			</section>
 			`;
-		})
+		}).join('')
 	}
 	setState(newState) {
 		super.setState(newState);
