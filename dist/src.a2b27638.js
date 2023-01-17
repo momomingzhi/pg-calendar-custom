@@ -5988,7 +5988,7 @@ var App = /*#__PURE__*/function (_Component) {
         _select$split2 = _slicedToArray(_select$split, 2),
         optionIdx = _select$split2[0],
         option = _select$split2[1];
-      console.log('안녕', items);
+      console.log('안녕~~~~', items);
       return items.map(function (item, idx) {
         return "<section class=\"".concat(item.className, "\">\n\t\t\t\t<h2>").concat(item.title, "</h2>\n\t\t\t\t<div class=\"code-section\">\n\t\t\t\t\t<ul class=\"tab\">\n\t\t\t\t\t\t<li class=\"").concat(optionIdx == idx && option == 'html' ? 'active' : '', "\" value=\"").concat(idx, "_html\">HTML</li>\n\t\t\t\t\t\t<li class=\"").concat(optionIdx == idx && option == 'js' ? 'active' : '', "\" value=\"").concat(idx, "_js\">Java Script</li>\n\t\t\t\t\t</ul>\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<pre>\n\t\t\t\t\t\t\t<code class=\"language-javascript\">").concat(idx == optionIdx && option == 'html' ? item.html : item.js.replace(/\t/g, ''), "</code>\n\t\t\t\t\t\t</pre>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</section>\n\t\t\t");
       }).join('');
