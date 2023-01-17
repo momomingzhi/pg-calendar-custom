@@ -1,3 +1,21 @@
+const calendarSource = [
+	{
+		className : `.basic`,
+		html:`<div class="calendar"></div>`,
+		js:`$(function() {
+			    $('.basic .calendar').pignoseCalendar();
+			});`
+	},
+	{
+		className : `.multiple`,
+		html:`<div class="calendar"></div>`,
+		js:`$(function() {
+			    $('.basic .calendar').pignoseCalendar({
+			        multiple: true
+			    });
+			});`
+	}
+]
 class Calendar{
 	constructor(placeholder,format,minDate,maxDate,multiple,week,next,prev,html,state,component) {
 		this.placeholder = placeholder;
@@ -13,6 +31,10 @@ class Calendar{
 		this.state = state;
 		this.component = component;
 
+	}
+	getState = () => {
+		console.log('get state:',this.state)
+		return this.state
 	}
 	createCalendar=()=>{
 		const newDiv = document.createElement("div");
@@ -38,6 +60,7 @@ class Calendar{
 				this.state = context.element[0].value;
 
 			}
+			this.getState()
 		}
 		const tag = this.component === 'default' ? 'div' : 'input'
 		$(`${tag}.calendar`).attr("placeholder", this.placeholder ?? '날짜를 선택해주세요')
@@ -69,95 +92,96 @@ class InputCalendar extends Calendar{
 
 	}
 }
-export function CalendarComponent(props){
-	if(typeof props !== 'object'){
-		//object가 아니면 or 전부 디폴트 값으로 할거라면
-		props = {
-			placeholder : '날짜를 선택해주세요',
-			format : 'YYYY-MM-DD',
-			minDate : '',
-			maxDate : '',
-			multiple : false,
-			week:0,
-			next : ()=>{},
-			prev : ()=>{},
-			html : 'main',
-			state : {},
-		}
-	}
-	const {
-		placeholder = '날짜를 선택해주세요',
-		format = 'YYYY-MM-DD',
-		minDate = '',
-		maxDate = '',
-		multiple = false,
-		week = 0,
-		next = ()=>{},
-		prev = ()=>{},
-		html = 'main',
-		state = {},
-	} = props;
-
-	const defaultCalendar = new Calendar(
-		placeholder,
-		format,
-		minDate,
-		maxDate,
-		multiple,
-		week,
-		next,
-		prev,
-		html,
-		state,
-		'default'
-	)
-	defaultCalendar.createCalendar();
-	defaultCalendar.settingCalendar();
-}
-
-export function InputComponent(props){
-	if(typeof props !== 'object'){
-		//object가 아니면 or 전부 디폴트 값으로 할거라면
-		props = {
-			placeholder : '날짜를 선택해주세요',
-			format : 'YYYY-MM-DD',
-			minDate : '',
-			maxDate : '',
-			multiple : false,
-			week:0,
-			next : ()=>{},
-			prev : ()=>{},
-			html : 'main',
-			state : {},
-		}
-	}
-	let {
-		placeholder,
-		format = 'YYYY-MM-DD',
-		minDate = '',
-		maxDate = '',
-		multiple = false,
-		week = 0,
-		next = ()=>{},
-		prev = ()=>{},
-		html = 'main',
-		state = {},
-	} = props;
-
-	const Input = new InputCalendar(
-		placeholder,
-		format,
-		minDate,
-		maxDate,
-		multiple,
-		week,
-		next,
-		prev,
-		html,
-		state,
-		'input',
-	)
-	Input.createCalendar();
-	Input.settingCalendar();
-}
-
+// export function CalendarComponent(props){
+// 	if(typeof props !== 'object'){
+// 		//object가 아니면 or 전부 디폴트 값으로 할거라면
+// 		props = {
+// 			placeholder : '날짜를 선택해주세요',
+// 			format : 'YYYY-MM-DD',
+// 			minDate : '',
+// 			maxDate : '',
+// 			multiple : false,
+// 			week:0,
+// 			next : ()=>{},
+// 			prev : ()=>{},
+// 			html : 'main',
+// 			state : {},
+// 		}
+// 	}
+// 	const {
+// 		placeholder = '날짜를 선택해주세요',
+// 		format = 'YYYY-MM-DD',
+// 		minDate = '',
+// 		maxDate = '',
+// 		multiple = false,
+// 		week = 0,
+// 		next = ()=>{},
+// 		prev = ()=>{},
+// 		html = 'main',
+// 		state = {},
+// 	} = props;
+//
+// 	const defaultCalendar = new Calendar(
+// 		placeholder,
+// 		format,
+// 		minDate,
+// 		maxDate,
+// 		multiple,
+// 		week,
+// 		next,
+// 		prev,
+// 		html,
+// 		state,
+// 		'default'
+// 	)
+// 	defaultCalendar.createCalendar();
+// 	defaultCalendar.settingCalendar();
+// }
+//
+// export function InputComponent(props){
+// 	if(typeof props !== 'object'){
+// 		//object가 아니면 or 전부 디폴트 값으로 할거라면
+// 		props = {
+// 			placeholder : '날짜를 선택해주세요',
+// 			format : 'YYYY-MM-DD',
+// 			minDate : '',
+// 			maxDate : '',
+// 			multiple : false,
+// 			week:0,
+// 			next : ()=>{},
+// 			prev : ()=>{},
+// 			html : 'main',
+// 			state : {},
+// 		}
+// 	}
+// 	let {
+// 		placeholder,
+// 		format = 'YYYY-MM-DD',
+// 		minDate = '',
+// 		maxDate = '',
+// 		multiple = false,
+// 		week = 0,
+// 		next = ()=>{},
+// 		prev = ()=>{},
+// 		html = 'main',
+// 		state = {},
+// 	} = props;
+//
+// 	const Input = new InputCalendar(
+// 		placeholder,
+// 		format,
+// 		minDate,
+// 		maxDate,
+// 		multiple,
+// 		week,
+// 		next,
+// 		prev,
+// 		html,
+// 		state,
+// 		'input',
+// 	)
+// 	Input.createCalendar();
+// 	Input.settingCalendar();
+// }
+$(`.basic .calendar`).pignoseCalendar({});
+$(`.basic li`)
