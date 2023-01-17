@@ -13,7 +13,7 @@ class Component {
 	}
 	render() {
 		this.$target.innerHTML = this.template();
-		hljs.initHighlightingOnLoad();
+		hljs.highlightAll();
 		this.setEvent();
 	}
 	setEvent() {}

@@ -164,7 +164,7 @@ var Component = /*#__PURE__*/function () {
     key: "render",
     value: function render() {
       this.$target.innerHTML = this.template();
-      hljs.initHighlightingOnLoad();
+      hljs.highlightAll();
       this.setEvent();
     }
   }, {
