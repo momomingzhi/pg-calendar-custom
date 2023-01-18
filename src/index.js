@@ -170,7 +170,7 @@ class App extends Component {
 		};
 	}
 	template() {
-		const { init,items, select } = this.$state;
+		const { items, select } = this.$state;
 		const [optionIdx, option] = select.split('_');
 		return items.map((item, idx) => {
 			return `<section class="${item.className}">

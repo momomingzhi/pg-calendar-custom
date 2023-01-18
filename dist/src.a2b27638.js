@@ -288,7 +288,6 @@ var App = /*#__PURE__*/function (_Component) {
     key: "template",
     value: function template() {
       var _this$$state = this.$state,
-        init = _this$$state.init,
         items = _this$$state.items,
         select = _this$$state.select;
       var _select$split = select.split('_'),
