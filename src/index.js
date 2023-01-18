@@ -28,7 +28,7 @@ class Component {
 class App extends Component {
 	setup() {
 		this.$state = {
-			select: '0_html',
+			select: '1_html',
 			items: [
 				{
 					title: '기본',
@@ -170,16 +170,15 @@ class App extends Component {
 		};
 	}
 	template() {
-		const { items, select } = this.$state;
+		const { init,items, select } = this.$state;
 		const [optionIdx, option] = select.split('_');
-		console.log('안녕~~~~', items);
 		return items.map((item, idx) => {
 			return `<section class="${item.className}">
 				<h2>${item.title}</h2>
 				<div class="code-section">
 					<ul class="tab">
-						<li class="${optionIdx == idx && option == 'html' ? 'active' : ''}" value="${idx}_html">HTML</li>
-						<li class="${optionIdx == idx && option == 'js' ? 'active' : ''}" value="${idx}_js">Java Script</li>
+						<li class="" value="${idx}_html">HTML</li>
+						<li class="active" value="${idx}_js">Java Script</li>
 					</ul>
 					<div>
 						<pre>
@@ -209,12 +208,21 @@ class App extends Component {
 				$(`.${sectionList[i].className} .calendar`).pignoseCalendar(selectedItem[i].option);
 			})();
 		}
-		for (let node of nodeList) {
-			node.addEventListener('click', () => {
+		for (let i = 0;i<nodeList.length;i++) {
+			nodeList[i].addEventListener('click', () => {
 				this.setState({
-					select: node?.attributes['value'].value,
+					select: nodeList[i].attributes['value'].value,
 				});
 			});
+		}
+		const [index,option] = this.$state.select.split('_');
+		if(option === 'js'){
+			nodeList[2*Number(index)+1].setAttribute('class','active')
+			nodeList[2*Number(index)].setAttribute('class','');
+		}
+		else if(option === 'html'){
+			nodeList[2*Number(index)+1].setAttribute('class','')
+			nodeList[2*Number(index)].setAttribute('class','active');
 		}
 		for(let i = 0; i< liList.length;i++){
 			liList[i].addEventListener('click',function (){
@@ -224,6 +232,7 @@ class App extends Component {
 				})
 			})
 		}
+
 	}
 }
 new App(document.querySelector('section'));

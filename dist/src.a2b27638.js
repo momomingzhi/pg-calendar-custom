@@ -119,7 +119,6 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"src/index.js":[function(require,module,exports) {
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -190,7 +189,7 @@ var App = /*#__PURE__*/function (_Component) {
     key: "setup",
     value: function setup() {
       this.$state = {
-        select: '0_html',
+        select: '1_html',
         items: [{
           title: '기본',
           className: "basic",
@@ -289,15 +288,15 @@ var App = /*#__PURE__*/function (_Component) {
     key: "template",
     value: function template() {
       var _this$$state = this.$state,
+        init = _this$$state.init,
         items = _this$$state.items,
         select = _this$$state.select;
       var _select$split = select.split('_'),
         _select$split2 = _slicedToArray(_select$split, 2),
         optionIdx = _select$split2[0],
         option = _select$split2[1];
-      console.log('안녕~~~~', items);
       return items.map(function (item, idx) {
-        return "<section class=\"".concat(item.className, "\">\n\t\t\t\t<h2>").concat(item.title, "</h2>\n\t\t\t\t<div class=\"code-section\">\n\t\t\t\t\t<ul class=\"tab\">\n\t\t\t\t\t\t<li class=\"").concat(optionIdx == idx && option == 'html' ? 'active' : '', "\" value=\"").concat(idx, "_html\">HTML</li>\n\t\t\t\t\t\t<li class=\"").concat(optionIdx == idx && option == 'js' ? 'active' : '', "\" value=\"").concat(idx, "_js\">Java Script</li>\n\t\t\t\t\t</ul>\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<pre>\n\t\t\t\t\t\t\t<code class=\"language-javascript\">").concat(idx == optionIdx && option == 'html' ? item.html : item.js.replace(/\t/g, ''), "</code>\n\t\t\t\t\t\t</pre>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</section>\n\t\t\t");
+        return "<section class=\"".concat(item.className, "\">\n\t\t\t\t<h2>").concat(item.title, "</h2>\n\t\t\t\t<div class=\"code-section\">\n\t\t\t\t\t<ul class=\"tab\">\n\t\t\t\t\t\t<li class=\"\" value=\"").concat(idx, "_html\">HTML</li>\n\t\t\t\t\t\t<li class=\"active\" value=\"").concat(idx, "_js\">Java Script</li>\n\t\t\t\t\t</ul>\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<pre>\n\t\t\t\t\t\t\t<code class=\"language-javascript\">").concat(idx == optionIdx && option == 'html' ? item.html : item.js.replace(/\t/g, ''), "</code>\n\t\t\t\t\t\t</pre>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</section>\n\t\t\t");
       }).join('');
     }
   }, {
@@ -324,26 +323,28 @@ var App = /*#__PURE__*/function (_Component) {
       for (var i = 0; i < sectionList.length; i++) {
         _loop(i);
       }
-      var _iterator = _createForOfIteratorHelper(nodeList),
-        _step;
-      try {
-        var _loop3 = function _loop3() {
-          var node = _step.value;
-          node.addEventListener('click', function () {
-            _this.setState({
-              select: node === null || node === void 0 ? void 0 : node.attributes['value'].value
-            });
-          });
-        };
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          _loop3();
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
       var _loop2 = function _loop2(i) {
+        nodeList[i].addEventListener('click', function () {
+          _this.setState({
+            select: nodeList[i].attributes['value'].value
+          });
+        });
+      };
+      for (var _i2 = 0; _i2 < nodeList.length; _i2++) {
+        _loop2(_i2);
+      }
+      var _this$$state$select$s = this.$state.select.split('_'),
+        _this$$state$select$s2 = _slicedToArray(_this$$state$select$s, 2),
+        index = _this$$state$select$s2[0],
+        option = _this$$state$select$s2[1];
+      if (option === 'js') {
+        nodeList[2 * Number(index) + 1].setAttribute('class', 'active');
+        nodeList[2 * Number(index)].setAttribute('class', '');
+      } else if (option === 'html') {
+        nodeList[2 * Number(index) + 1].setAttribute('class', '');
+        nodeList[2 * Number(index)].setAttribute('class', 'active');
+      }
+      var _loop3 = function _loop3(i) {
         liList[i].addEventListener('click', function () {
           var _sectionList$i;
           window.scrollTo({
@@ -352,8 +353,8 @@ var App = /*#__PURE__*/function (_Component) {
           });
         });
       };
-      for (var _i2 = 0; _i2 < liList.length; _i2++) {
-        _loop2(_i2);
+      for (var _i3 = 0; _i3 < liList.length; _i3++) {
+        _loop3(_i3);
       }
     }
   }]);
