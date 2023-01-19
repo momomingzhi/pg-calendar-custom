@@ -64,7 +64,22 @@
 		h2{
 			text-align: center;
 			padding: 0 0 1rem 0 ;
-		}</style>
+		}
+		input.calendar{
+			display: flex;
+		}
+		.pignose-calendar-top-month{
+			position: relative;
+			cursor:pointer;
+
+		}
+        .pignose-calendar-top-month select{
+	        position: absolute;
+            left: 50%;
+	        top:50%;
+	        transform: translate(-50%,-50%);
+	        width: 30%;
+        }</style>
 <script src="/styles.dd855970.js"></script></head>
 
 <body>
@@ -82,7 +97,37 @@
 		</ul>
 		<h1>예제</h1>
 		<section></section>
+<!--		<input class="calendar"/>-->
 	</main>
+<!--	<script>-->
+<!--		var uijs = (function(){-->
+<!--			var holidays = [];-->
+<!--			$('input.calendar').one("click", function() {-->
+<!--				var $this = $(this);-->
+<!--				console.log('one click')-->
+<!--				$this.pignoseCalendar({-->
+<!--					format: 'YYYY.MM.DD',-->
+<!--					theme: 'blue',-->
+<!--					lang: 'ko',-->
+<!--					disabledDates: holidays,-->
+<!--					minDate: moment().add(1, 'd').format("YYYY-MM-DD")  //과거 날짜는 예약 못하게-->
+<!--				});-->
+<!--			//	$this.trigger('click');-->
+<!--			});-->
+<!--			return {-->
+<!--				Calendar : {-->
+<!--					setHoliday : function(days) {-->
+<!--						holidays = holidays.concat(days);-->
+<!--					}-->
+<!--				}-->
+<!--			};-->
+<!--		})();-->
+
+
+<!--		(function(){-->
+<!--			uijs.Calendar.setHoliday(['2023-01-27', '2023-01-22']);-->
+<!--		})();-->
+<!--	</script>-->
 	<script src="/src.a2b27638.js">
 	</script>
 </body>

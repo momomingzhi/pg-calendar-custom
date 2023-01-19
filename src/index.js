@@ -1,5 +1,3 @@
-
-
 class Component {
 	$target;
 	$state;
@@ -21,6 +19,7 @@ class Component {
 	setEvent() {}
 	setState(newState) {
 		this.$state = { ...this.$state, ...newState };
+		console.log('####:', this.$state);
 		this.render();
 	}
 }
@@ -29,6 +28,7 @@ class App extends Component {
 	setup() {
 		this.$state = {
 			select: '1_html',
+			changeMonth: [false, false, false, false],
 			items: [
 				{
 					title: '기본',
@@ -133,17 +133,17 @@ class App extends Component {
 						multiple: true,
 					},
 				},
-				// {
-				// 	title: '기본',
-				// 	className: `basic`,
-				// 	html: `<xmp><div class="calendar"></div></xmp>`,
-				// 	js: `
-				// 			$(function() {
-				// 		        $('.basic .calendar').pignoseCalendar();
-				// 			});
-				// 		`,
-				// 	option: {},
-				// },
+				{
+					title: 'input 태그로 눌러서 달력 열기',
+					className: `input`,
+					html: `<xmp><input class="calendar" /></xmp>`,
+					js: `
+							$(function() {
+						        $('input.calendar').pignoseCalendar();
+							});
+						`,
+					option: {},
+				},
 				// {
 				// 	title: '기본',
 				// 	className: `basic`,
@@ -172,8 +172,9 @@ class App extends Component {
 	template() {
 		const { items, select } = this.$state;
 		const [optionIdx, option] = select.split('_');
-		return items.map((item, idx) => {
-			return `<section class="${item.className}">
+		return items
+			.map((item, idx) => {
+				return `<section class="${item.className}">
 				<h2>${item.title}</h2>
 				<div class="code-section">
 					<ul class="tab">
@@ -188,51 +189,93 @@ class App extends Component {
 				</div>
 			</section>
 			`;
-		}).join('')
+			})
+			.join('');
 	}
-	setState(newState) {
-		super.setState(newState);
-	}
+	calendarTemplate() {
+		const changeCalendar = this.$state.changeMonth;
+		const $monthTag = this.$target.getElementsByClassName('pignose-calendar-top-month');
+		for (let i = 0; i < changeCalendar.length; i++) {
+			if (!changeCalendar[i]) continue;
+			const $select = document.createElement('select');
 
-	setEvent() {
-		const sectionList = this.$target.querySelectorAll('section');
-		const nodeList = this.$target.querySelectorAll('ul li');
-		const selectedItem = this.$state.items;
-		const liList = document.querySelectorAll('main > ul > li');
-
-		for (let i = 0; i < sectionList.length; i++) {
-			const div = document.createElement('div');
-			div.setAttribute('class', 'calendar');
-			sectionList[i].insertBefore(div, sectionList[i].childNodes[2]);
-			(function () {
-				$(`.${sectionList[i].className} .calendar`).pignoseCalendar(selectedItem[i].option);
-			})();
+			for (let i = 0; i < 12; i++) {
+				let $option = document.createElement('option');
+				$option.value = `${i}`;
+				$option.innerHTML = `${i}`;
+				$select.appendChild($option);
+			}
+			$monthTag[0].appendChild($select);
+			console.log('들어옴', $monthTag[0], $select);
 		}
-		for (let i = 0;i<nodeList.length;i++) {
-			nodeList[i].addEventListener('click', () => {
-				this.setState({
-					select: nodeList[i].attributes['value'].value,
+	}
+	createSelect() {
+		const $monthTag = this.$target.getElementsByClassName('pignose-calendar-top-month');
+		const $select = document.createElement('select');
+		const changeMonth = this.$state.changeMonth;
+		for (let i = 0; i < 12; i++) {
+			let $option = document.createElement('option');
+			$option.value = `${i}`;
+			$option.innerHTML = `${i}`;
+			$select.appendChild($option);
+		}
+		for (let month = 0; month < $monthTag.length; month++) {
+			$monthTag[month].addEventListener('click', () => {
+				if (!$monthTag[month].querySelector('select')) {
+					const newChangeMonth = [...changeMonth];
+					newChangeMonth[month] = true;
+					this.setState({
+						changeMonth: newChangeMonth,
+					});
+					$monthTag[month].appendChild($select);
+				}
+			});
+		}
+
+		// if(selectFlag){
+		// 	$monthTag[0].appendChild($select)
+		// }
+	}
+	setIndexList() {
+		const $liList = document.querySelectorAll('main > ul > li');
+		for (let i = 0; i < $liList.length; i++) {
+			$liList[i].addEventListener('click', function () {
+				window.scrollTo({
+					top: $sectionList[i]?.offsetTop - 50,
+					behavior: 'smooth',
 				});
 			});
 		}
-		const [index,option] = this.$state.select.split('_');
-		if(option === 'js'){
-			nodeList[2*Number(index)+1].setAttribute('class','active')
-			nodeList[2*Number(index)].setAttribute('class','');
-		}
-		else if(option === 'html'){
-			nodeList[2*Number(index)+1].setAttribute('class','')
-			nodeList[2*Number(index)].setAttribute('class','active');
-		}
-		for(let i = 0; i< liList.length;i++){
-			liList[i].addEventListener('click',function (){
-				window.scrollTo({
-					top:sectionList[i]?.offsetTop -50,
-					behavior: 'smooth'
-				})
-			})
-		}
+	}
+	setEvent() {
+		const $tabList = this.$target.querySelectorAll('ul li');
+		const $sectionList = this.$target.querySelectorAll('section');
+		const selectedItem = this.$state.items;
 
+		const [index, option] = this.$state.select.split('_');
+		const handleActive = (toggle) => {
+			$tabList[2 * Number(index) + 1].setAttribute('class', toggle ? 'active' : '');
+			$tabList[2 * Number(index)].setAttribute('class', toggle ? '' : 'active');
+		};
+
+		for (let i = 0; i < $sectionList.length; i++) {
+			const tag = $sectionList[i].className === 'input' ? 'input' : 'div';
+			const element = document.createElement(tag);
+			element.setAttribute('class', 'calendar');
+			$sectionList[i].insertBefore(element, $sectionList[i].childNodes[2]);
+			(function () {
+				$(`.${$sectionList[i].className} .calendar`).pignoseCalendar(selectedItem[i].option);
+			})();
+		}
+		for (let i = 0; i < $tabList.length; i++) {
+			$tabList[i].addEventListener('click', () => {
+				this.setState({
+					select: $tabList[i].attributes['value'].value,
+				});
+			});
+		}
+		handleActive(option === 'js');
+		this.createSelect();
 	}
 }
 new App(document.querySelector('section'));
