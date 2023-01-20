@@ -6,6 +6,7 @@ class Component {
 		this.$target = $target;
 		this.setup();
 		this.render();
+		this.setEvent();
 	}
 	setup() {}
 	template() {
@@ -14,9 +15,18 @@ class Component {
 	render() {
 		this.$target.innerHTML = this.template();
 		hljs.highlightAll();
-		this.setEvent();
+		//this.setEvent();
 	}
 	setEvent() {}
+	addEvent(eventType, selector, callback) {
+		const children = [...this.$target.querySelectorAll(selector)];
+		console.log('DDD:', children);
+		const isTarget = (target) => children.includes(target) || target.closest(selector);
+		this.$target.addEventListener(eventType, (event) => {
+			if (!isTarget(event.target)) return false;
+			callback(event);
+		});
+	}
 	setState(newState) {
 		this.$state = { ...this.$state, ...newState };
 		console.log('####:', this.$state);
@@ -33,6 +43,7 @@ class App extends Component {
 				{
 					title: '기본',
 					className: `basic`,
+					select: '',
 					html: `<xmp><div class="calendar"></div></xmp>`,
 					js: `$(function() {
 						        $('.basic .calendar').pignoseCalendar();
@@ -42,6 +53,7 @@ class App extends Component {
 				{
 					title: '범위로 날짜 지정하기',
 					className: `multiple`,
+					select: '',
 					html: `<xmp><div class="calendar"></div></xmp>`,
 					js: `$(function() {
 					                $('.basic .calendar').pignoseCalendar({
@@ -55,6 +67,7 @@ class App extends Component {
 				{
 					title: '특정 날짜 선택하지 못하게 하기',
 					className: `notSelectedDate`,
+					select: '',
 					html: `<xmp><div class="calendar"></div></xmp>`,
 					js: `
 							$(function() {
@@ -70,6 +83,7 @@ class App extends Component {
 				{
 					title: '주말 선택 불가하게 하기',
 					className: `notSelectedWeekend`,
+					select: '',
 					html: `<xmp><div class="calendar"></div></xmp>`,
 					js: `$(function() {
 						        $('.calendar').pignoseCalendar(
@@ -85,6 +99,7 @@ class App extends Component {
 				{
 					title: '오늘 날짜 비활성화',
 					className: `disabledToday`,
+					select: '',
 					html: `<xmp><div class="calendar"></div></xmp>`,
 					js: `
 							$(function() {
@@ -102,6 +117,7 @@ class App extends Component {
 				{
 					title: '최소, 최대 구간 정하고 날짜 지정하기',
 					className: `minMax`,
+					select: '',
 					html: `<xmp><div class="calendar"></div></xmp>`,
 					js: `
 							$(function() {
@@ -119,6 +135,7 @@ class App extends Component {
 				{
 					title: '한주 단위로 선택하기',
 					className: `oneWeek`,
+					select: '',
 					html: `<xmp><div class="calendar"></div></xmp>`,
 					js: `
 							$(function() {
@@ -136,6 +153,7 @@ class App extends Component {
 				{
 					title: 'input 태그로 눌러서 달력 열기',
 					className: `input`,
+					select: '',
 					html: `<xmp><input class="calendar" /></xmp>`,
 					js: `
 							$(function() {
@@ -192,23 +210,7 @@ class App extends Component {
 			})
 			.join('');
 	}
-	calendarTemplate() {
-		const changeCalendar = this.$state.changeMonth;
-		const $monthTag = this.$target.getElementsByClassName('pignose-calendar-top-month');
-		for (let i = 0; i < changeCalendar.length; i++) {
-			if (!changeCalendar[i]) continue;
-			const $select = document.createElement('select');
 
-			for (let i = 0; i < 12; i++) {
-				let $option = document.createElement('option');
-				$option.value = `${i}`;
-				$option.innerHTML = `${i}`;
-				$select.appendChild($option);
-			}
-			$monthTag[0].appendChild($select);
-			console.log('들어옴', $monthTag[0], $select);
-		}
-	}
 	createSelect() {
 		const $monthTag = this.$target.getElementsByClassName('pignose-calendar-top-month');
 		const $select = document.createElement('select');
@@ -251,14 +253,15 @@ class App extends Component {
 		const $tabList = this.$target.querySelectorAll('ul li');
 		const $sectionList = this.$target.querySelectorAll('section');
 		const selectedItem = this.$state.items;
-
+		const length = $sectionList.length;
 		const [index, option] = this.$state.select.split('_');
 		const handleActive = (toggle) => {
+			console.log('탓다아아아', toggle);
 			$tabList[2 * Number(index) + 1].setAttribute('class', toggle ? 'active' : '');
 			$tabList[2 * Number(index)].setAttribute('class', toggle ? '' : 'active');
 		};
 
-		for (let i = 0; i < $sectionList.length; i++) {
+		for (let i = 0; i < length; i++) {
 			const tag = $sectionList[i].className === 'input' ? 'input' : 'div';
 			const element = document.createElement(tag);
 			element.setAttribute('class', 'calendar');
@@ -266,14 +269,20 @@ class App extends Component {
 			(function () {
 				$(`.${$sectionList[i].className} .calendar`).pignoseCalendar(selectedItem[i].option);
 			})();
-		}
-		for (let i = 0; i < $tabList.length; i++) {
-			$tabList[i].addEventListener('click', () => {
+			this.addEvent('click', 'ul li', ({ target }) => {
 				this.setState({
-					select: $tabList[i].attributes['value'].value,
+					select: target.attributes['value'].value,
 				});
+				handleActive(option === 'js');
 			});
 		}
+		// for (let i = 0; i < $tabList.length; i++) {
+		// 	$tabList[i].addEventListener('click', () => {
+		// 		this.setState({
+		// 			select: $tabList[i].attributes['value'].value,
+		// 		});
+		// 	});
+		// }
 		handleActive(option === 'js');
 		this.createSelect();
 	}

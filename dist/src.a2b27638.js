@@ -119,14 +119,8 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"src/index.js":[function(require,module,exports) {
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
@@ -138,6 +132,12 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -152,6 +152,7 @@ var Component = /*#__PURE__*/function () {
     this.$target = $target;
     this.setup();
     this.render();
+    this.setEvent();
   }
   _createClass(Component, [{
     key: "setup",
@@ -166,11 +167,24 @@ var Component = /*#__PURE__*/function () {
     value: function render() {
       this.$target.innerHTML = this.template();
       hljs.highlightAll();
-      this.setEvent();
+      //this.setEvent();
     }
   }, {
     key: "setEvent",
     value: function setEvent() {}
+  }, {
+    key: "addEvent",
+    value: function addEvent(eventType, selector, callback) {
+      var children = _toConsumableArray(this.$target.querySelectorAll(selector));
+      console.log('DDD:', children);
+      var isTarget = function isTarget(target) {
+        return children.includes(target) || target.closest(selector);
+      };
+      this.$target.addEventListener(eventType, function (event) {
+        if (!isTarget(event.target)) return false;
+        callback(event);
+      });
+    }
   }, {
     key: "setState",
     value: function setState(newState) {
@@ -197,12 +211,14 @@ var App = /*#__PURE__*/function (_Component) {
         items: [{
           title: '기본',
           className: "basic",
+          select: '',
           html: "<xmp><div class=\"calendar\"></div></xmp>",
           js: "$(function() {\n\t\t\t\t\t\t        $('.basic .calendar').pignoseCalendar();\n\t\t\t\t\t\t });",
           option: {}
         }, {
           title: '범위로 날짜 지정하기',
           className: "multiple",
+          select: '',
           html: "<xmp><div class=\"calendar\"></div></xmp>",
           js: "$(function() {\n\t\t\t\t\t                $('.basic .calendar').pignoseCalendar({\n\t\t\t\t\t                    multiple: true\n\t\t\t\t\t\t\t\t    });\n\t\t\t\t\t\t\t\t});",
           option: {
@@ -211,6 +227,7 @@ var App = /*#__PURE__*/function (_Component) {
         }, {
           title: '특정 날짜 선택하지 못하게 하기',
           className: "notSelectedDate",
+          select: '',
           html: "<xmp><div class=\"calendar\"></div></xmp>",
           js: "\n\t\t\t\t\t\t\t$(function() {\n\t\t\t\t\t\t        $('.calendar').pignoseCalendar({\n\t\t\t\t\t\t            disabledDates: [moment().add(-1, 'd').format('YYYY-MM-DD')],\n\t\t\t\t\t\t        });\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t",
           option: {
@@ -219,6 +236,7 @@ var App = /*#__PURE__*/function (_Component) {
         }, {
           title: '주말 선택 불가하게 하기',
           className: "notSelectedWeekend",
+          select: '',
           html: "<xmp><div class=\"calendar\"></div></xmp>",
           js: "$(function() {\n\t\t\t\t\t\t        $('.calendar').pignoseCalendar(\n\t\t\t\t\t\t        {\n\t\t\t\t\t\t            disabledWeekdays: [0, 6]    \n\t\t\t\t\t\t        });\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t",
           option: {
@@ -227,6 +245,7 @@ var App = /*#__PURE__*/function (_Component) {
         }, {
           title: '오늘 날짜 비활성화',
           className: "disabledToday",
+          select: '',
           html: "<xmp><div class=\"calendar\"></div></xmp>",
           js: "\n\t\t\t\t\t\t\t$(function() {\n\t\t\t\t\t\t        $('.calendar').pignoseCalendar({\n\t\t\t\t\t\t            format: 'YYYY.MM.DD',\n\t\t\t\t\t\t            disabledDates: [moment().format('YYYY-MM-DD')],\n\t\t\t\t\t\t        });\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t",
           option: {
@@ -236,6 +255,7 @@ var App = /*#__PURE__*/function (_Component) {
         }, {
           title: '최소, 최대 구간 정하고 날짜 지정하기',
           className: "minMax",
+          select: '',
           html: "<xmp><div class=\"calendar\"></div></xmp>",
           js: "\n\t\t\t\t\t\t\t$(function() {\n\t\t\t\t\t\t        $('.calendar').pignoseCalendar({\n\t\t\t\t\t\t            minDate: moment().add(-1, 'd').format('YYYY-MM-DD'),\n\t\t\t\t\t\t            maxDate: moment().add(7, 'd').format('YYYY-MM-DD'),\n\t\t\t\t\t\t        });\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t",
           option: {
@@ -245,6 +265,7 @@ var App = /*#__PURE__*/function (_Component) {
         }, {
           title: '한주 단위로 선택하기',
           className: "oneWeek",
+          select: '',
           html: "<xmp><div class=\"calendar\"></div></xmp>",
           js: "\n\t\t\t\t\t\t\t$(function() {\n\t\t\t\t\t\t        $('.calendar').pignoseCalendar({\n\t\t\t\t\t\t            pickWeeks: true,\n\t\t\t\t\t\t            multiple: true,\n\t\t\t\t\t\t        });\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t",
           option: {
@@ -254,6 +275,7 @@ var App = /*#__PURE__*/function (_Component) {
         }, {
           title: 'input 태그로 눌러서 달력 열기',
           className: "input",
+          select: '',
           html: "<xmp><input class=\"calendar\" /></xmp>",
           js: "\n\t\t\t\t\t\t\t$(function() {\n\t\t\t\t\t\t        $('input.calendar').pignoseCalendar();\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t",
           option: {}
@@ -296,24 +318,6 @@ var App = /*#__PURE__*/function (_Component) {
       return items.map(function (item, idx) {
         return "<section class=\"".concat(item.className, "\">\n\t\t\t\t<h2>").concat(item.title, "</h2>\n\t\t\t\t<div class=\"code-section\">\n\t\t\t\t\t<ul class=\"tab\">\n\t\t\t\t\t\t<li class=\"\" value=\"").concat(idx, "_html\">HTML</li>\n\t\t\t\t\t\t<li class=\"active\" value=\"").concat(idx, "_js\">Java Script</li>\n\t\t\t\t\t</ul>\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<pre>\n\t\t\t\t\t\t\t<code class=\"language-javascript\">").concat(idx == optionIdx && option == 'html' ? item.html : item.js.replace(/\t/g, ''), "</code>\n\t\t\t\t\t\t</pre>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</section>\n\t\t\t");
       }).join('');
-    }
-  }, {
-    key: "calendarTemplate",
-    value: function calendarTemplate() {
-      var changeCalendar = this.$state.changeMonth;
-      var $monthTag = this.$target.getElementsByClassName('pignose-calendar-top-month');
-      for (var i = 0; i < changeCalendar.length; i++) {
-        if (!changeCalendar[i]) continue;
-        var $select = document.createElement('select');
-        for (var _i2 = 0; _i2 < 12; _i2++) {
-          var $option = document.createElement('option');
-          $option.value = "".concat(_i2);
-          $option.innerHTML = "".concat(_i2);
-          $select.appendChild($option);
-        }
-        $monthTag[0].appendChild($select);
-        console.log('들어옴', $monthTag[0], $select);
-      }
     }
   }, {
     key: "createSelect",
@@ -372,11 +376,13 @@ var App = /*#__PURE__*/function (_Component) {
       var $tabList = this.$target.querySelectorAll('ul li');
       var $sectionList = this.$target.querySelectorAll('section');
       var selectedItem = this.$state.items;
+      var length = $sectionList.length;
       var _this$$state$select$s = this.$state.select.split('_'),
         _this$$state$select$s2 = _slicedToArray(_this$$state$select$s, 2),
         index = _this$$state$select$s2[0],
         option = _this$$state$select$s2[1];
       var handleActive = function handleActive(toggle) {
+        console.log('탓다아아아', toggle);
         $tabList[2 * Number(index) + 1].setAttribute('class', toggle ? 'active' : '');
         $tabList[2 * Number(index)].setAttribute('class', toggle ? '' : 'active');
       };
@@ -388,20 +394,24 @@ var App = /*#__PURE__*/function (_Component) {
         (function () {
           $(".".concat($sectionList[i].className, " .calendar")).pignoseCalendar(selectedItem[i].option);
         })();
-      };
-      for (var i = 0; i < $sectionList.length; i++) {
-        _loop3(i);
-      }
-      var _loop4 = function _loop4(i) {
-        $tabList[i].addEventListener('click', function () {
+        _this2.addEvent('click', 'ul li', function (_ref) {
+          var target = _ref.target;
           _this2.setState({
-            select: $tabList[i].attributes['value'].value
+            select: target.attributes['value'].value
           });
+          handleActive(option === 'js');
         });
       };
-      for (var _i3 = 0; _i3 < $tabList.length; _i3++) {
-        _loop4(_i3);
+      for (var i = 0; i < length; i++) {
+        _loop3(i);
       }
+      // for (let i = 0; i < $tabList.length; i++) {
+      // 	$tabList[i].addEventListener('click', () => {
+      // 		this.setState({
+      // 			select: $tabList[i].attributes['value'].value,
+      // 		});
+      // 	});
+      // }
       handleActive(option === 'js');
       this.createSelect();
     }
@@ -480,7 +490,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51441" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54971" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
